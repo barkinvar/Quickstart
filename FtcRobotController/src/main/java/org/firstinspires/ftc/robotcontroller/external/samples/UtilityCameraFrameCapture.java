@@ -69,6 +69,8 @@ public class UtilityCameraFrameCapture extends LinearOpMode
     final int RESOLUTION_WIDTH = 640;
     final int RESOLUTION_HEIGHT = 480;
 
+
+
     // Internal state
     boolean lastX;
     int frameCount;
