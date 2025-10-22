@@ -44,14 +44,14 @@ public class Constants {
 
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
-            .rightFrontMotorName("front_right_motor")
-            .rightRearMotorName("back_right_motor")
-            .leftRearMotorName("back_left_motor")
-            .leftFrontMotorName("front_left_motor")
-            .leftFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
-            .leftRearMotorDirection(DcMotorSimple.Direction.FORWARD)
-            .rightFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
-            .rightRearMotorDirection(DcMotorSimple.Direction.REVERSE).xVelocity(64).yVelocity(53);
+            .rightFrontMotorName("rf")
+            .rightRearMotorName("rb")
+            .leftRearMotorName("lb")
+            .leftFrontMotorName("lf")
+            .leftFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
+            .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
+            .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
+            .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD).xVelocity(64).yVelocity(53);
 
 
     public static PinpointConstants localizerConstants = new PinpointConstants()
