@@ -78,23 +78,22 @@ public class AutoRED extends TeleopRED {
         public PathChain Path6;
         public PathChain Path7;
 
-
         public Paths(Follower follower) {
             Path1 = follower
                     .pathBuilder()
                     .addPath(
-                            new BezierLine(new Pose(56.000, 8.000), new Pose(56.000, 15.000))
+                            new BezierLine(new Pose(88.000, 8.000), new Pose(88.000, 15.000))
                     )
-                    .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(112))
+                    .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(68))
                     .build();
 
             Path2 = follower
                     .pathBuilder()
                     .addPath(
                             new BezierCurve(
-                                    new Pose(56.000, 15.000),
-                                    new Pose(48.293, 38.634),
-                                    new Pose(10.317, 35.122)
+                                    new Pose(88.000, 15.000),
+                                    new Pose(95.707, 38.634),
+                                    new Pose(133.683, 35.122)
                             )
                     )
                     .setTangentHeadingInterpolation()
@@ -104,9 +103,9 @@ public class AutoRED extends TeleopRED {
                     .pathBuilder()
                     .addPath(
                             new BezierCurve(
-                                    new Pose(10.317, 35.122),
-                                    new Pose(46.537, 44.122),
-                                    new Pose(61.902, 15.146)
+                                    new Pose(133.683, 35.122),
+                                    new Pose(97.463, 44.122),
+                                    new Pose(82.098, 15.146)
                             )
                     )
                     .setTangentHeadingInterpolation()
@@ -117,9 +116,9 @@ public class AutoRED extends TeleopRED {
                     .pathBuilder()
                     .addPath(
                             new BezierCurve(
-                                    new Pose(61.902, 15.146),
-                                    new Pose(50.707, 64.098),
-                                    new Pose(9.220, 58.829)
+                                    new Pose(82.098, 15.146),
+                                    new Pose(93.293, 64.098),
+                                    new Pose(134.780, 58.829)
                             )
                     )
                     .setTangentHeadingInterpolation()
@@ -129,9 +128,9 @@ public class AutoRED extends TeleopRED {
                     .pathBuilder()
                     .addPath(
                             new BezierCurve(
-                                    new Pose(9.220, 58.829),
-                                    new Pose(36.659, 67.829),
-                                    new Pose(61.683, 15.366)
+                                    new Pose(134.780, 58.829),
+                                    new Pose(107.341, 67.829),
+                                    new Pose(82.317, 15.366)
                             )
                     )
                     .setTangentHeadingInterpolation()
@@ -142,9 +141,9 @@ public class AutoRED extends TeleopRED {
                     .pathBuilder()
                     .addPath(
                             new BezierCurve(
-                                    new Pose(61.683, 15.366),
-                                    new Pose(79.683, 92.195),
-                                    new Pose(14.488, 83.415)
+                                    new Pose(82.317, 15.366),
+                                    new Pose(64.317, 92.195),
+                                    new Pose(129.512, 83.415)
                             )
                     )
                     .setTangentHeadingInterpolation()
@@ -153,9 +152,9 @@ public class AutoRED extends TeleopRED {
             Path7 = follower
                     .pathBuilder()
                     .addPath(
-                            new BezierLine(new Pose(14.488, 83.415), new Pose(46.976, 88.024))
+                            new BezierLine(new Pose(129.512, 83.415), new Pose(97.024, 88.024))
                     )
-                    .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(130))
+                    .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(50))
                     .build();
         }
     }
