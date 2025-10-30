@@ -4,21 +4,20 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierCurve; // Import BezierCurve
+import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-// Imports needed for alignment logic
 import com.seattlesolvers.solverslib.controller.PIDController;
+
 import java.util.OptionalDouble;
 
 // 1. EXTEND ExampleTeleOp2 to inherit all hardware and public methods
 @Autonomous(name = "Pedro Pathing Autonomous")
 @Configurable // Panels
-public class PedroAutonomous extends ExampleTeleOp2 {
+public class AutoRED extends TeleopRED {
 
     private TelemetryManager panelsTelemetry; // Panels Telemetry instance
     private int pathState; // Current autonomous path state (state machine)
@@ -378,7 +377,7 @@ public class PedroAutonomous extends ExampleTeleOp2 {
 
         // --- 3. Alignment Logic ---
         autoAlignPID.setSetPoint(alignSetpoint); // Update PID setpoint
-        OptionalDouble visionYaw = vision.getYaw(20);
+        OptionalDouble visionYaw = vision.getYaw(24);
         double rotation = 0.0;
         boolean atAlign = false;
 
@@ -416,6 +415,7 @@ public class PedroAutonomous extends ExampleTeleOp2 {
         runFeeder(0.0);
         runIntake(0.0);
         follower.setTeleOpDrive(0, 0, 0, true);
+        TeleopRED.startingPose = follower.getPose();
         super.stop(); // Call the parent stop method
     }
 }

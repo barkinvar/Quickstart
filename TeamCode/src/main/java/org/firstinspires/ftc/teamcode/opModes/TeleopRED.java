@@ -13,19 +13,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.VoltageSensor; // Import VoltageSensor
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.seattlesolvers.solverslib.controller.PIDController;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Vision;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.pedroPathing.DrawingPublic;
 
 import java.util.OptionalDouble;
 
 @Config // Enable FTC Dashboard tuning
 @TeleOp
-public class ExampleTeleOp2 extends OpMode {
+public class TeleopRED extends OpMode {
     public Follower follower;
     public static Pose startingPose; //See ExampleAuto to understand how to use this
     private TelemetryManager telemetryM;
@@ -54,7 +53,7 @@ public class ExampleTeleOp2 extends OpMode {
 
     // --- Alignment Setpoints ---
     public static double DEFAULT_ALIGN_SETPOINT = 0.0; // degrees
-    public static double LONG_ALIGN_SETPOINT = -4.0;   // 2 degrees left
+    public static double LONG_ALIGN_SETPOINT = 4.0;   // 2 degrees left
 
     // --- LED Statuses ---
     private static final int LED_STATUS_IDLE = 0;
@@ -70,9 +69,10 @@ public class ExampleTeleOp2 extends OpMode {
         // Get the battery voltage sensor
         batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
 
+        follower.setStartingPose(startingPose == null ? new Pose() : startingPose.plus(new Pose(0.000, 0.000, Math.toRadians(90))));
+
         vision = new Vision(telemetry, hardwareMap.get(WebcamName.class, "Arducam"));
         follower = Constants.createFollower(hardwareMap);
-        //follower.setStartingPose(startingPose == null ? new Pose() : startingPose);
         follower.update();
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         intake = hardwareMap.get( DcMotorSimple.class, "intake");
@@ -314,7 +314,7 @@ public class ExampleTeleOp2 extends OpMode {
      * @return Distance in meters, or 0.0 if not found.
      */
     public double getDistance() {
-        return vision.getDistance(20);
+        return vision.getDistance(24);
     }
 
     //================================================================================
@@ -329,7 +329,7 @@ public class ExampleTeleOp2 extends OpMode {
                 ySpeed,
                 xSpeed,
                 rotation,
-                true // Field Centric
+                false // Field Centric
         );
     }
 
@@ -344,7 +344,7 @@ public class ExampleTeleOp2 extends OpMode {
         // Update the PID setpoint every time we align
         alignPID.setSetPoint(targetYaw);
 
-        OptionalDouble visionYaw = vision.getYaw(20);
+        OptionalDouble visionYaw = vision.getYaw(24);
         boolean atSetpoint = false;
         double rotation;
 
@@ -356,7 +356,7 @@ public class ExampleTeleOp2 extends OpMode {
         }
         else if(scanning == 0){
             // Start scanning if we lose the tag
-            scanning = (follower.getHeading() > 0) ? 1 : -1;
+            scanning = (follower.getHeading() > Math.toRadians(-35.0)) ? 1 : -1;
             rotation = (scanning == 1) ? -0.35 : 0.35;
         }
         else {
@@ -368,7 +368,7 @@ public class ExampleTeleOp2 extends OpMode {
                 ySpeed,
                 xSpeed,
                 rotation,
-                true // Field Centric
+                false // Field Centric
         );
 
         return atSetpoint;
