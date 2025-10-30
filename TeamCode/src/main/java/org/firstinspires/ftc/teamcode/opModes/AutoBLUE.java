@@ -15,7 +15,7 @@ import com.seattlesolvers.solverslib.controller.PIDController;
 import java.util.OptionalDouble;
 
 // 1. EXTEND ExampleTeleOp2 to inherit all hardware and public methods
-@Autonomous(name = "Pedro Pathing Autonomous")
+@Autonomous(name = "Autonomous Blue")
 @Configurable // Panels
 public class AutoBLUE extends TeleopBLUE {
 

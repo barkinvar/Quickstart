@@ -69,7 +69,6 @@ public class TeleopBLUE extends OpMode {
         // Get the battery voltage sensor
         batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
 
-        follower.setStartingPose(startingPose == null ? new Pose() : startingPose.plus(new Pose(0.000, 0.000, Math.toRadians(-90))));
 
         vision = new Vision(telemetry, hardwareMap.get(WebcamName.class, "Arducam"));
         follower = Constants.createFollower(hardwareMap);
@@ -77,6 +76,7 @@ public class TeleopBLUE extends OpMode {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         intake = hardwareMap.get( DcMotorSimple.class, "intake");
         feeder = hardwareMap.get( DcMotorSimple.class, "feeder");
+        follower.setStartingPose(startingPose == null ? new Pose() : startingPose.plus(new Pose(0.000, 0.000, Math.toRadians(-90))));
 
         shooterL = hardwareMap.get( DcMotorEx.class, "shooterL");
         shooterR = hardwareMap.get( DcMotorEx.class, "shooterR");
