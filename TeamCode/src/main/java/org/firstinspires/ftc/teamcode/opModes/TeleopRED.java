@@ -26,7 +26,7 @@ import java.util.OptionalDouble;
 @TeleOp
 public class TeleopRED extends OpMode {
     public Follower follower;
-    public static Pose startingPose; //See ExampleAuto to understand how to use this
+    public static Pose startingPose = null; //See ExampleAuto to understand how to use this
     private TelemetryManager telemetryM;
     private final PIDController alignPID = new PIDController(0.021, 0,0.0005);
     private int scanning = 0;
@@ -76,7 +76,7 @@ public class TeleopRED extends OpMode {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         intake = hardwareMap.get( DcMotorSimple.class, "intake");
         feeder = hardwareMap.get( DcMotorSimple.class, "feeder");
-        follower.setStartingPose(startingPose == null ? new Pose(56.000, 8.000, Math.toRadians(90)) : startingPose);
+        follower.setPose(startingPose == null ? new Pose(88.000, 8.000, Math.toRadians(90)) : startingPose);
 
 
         shooterL = hardwareMap.get( DcMotorEx.class, "shooterL");
