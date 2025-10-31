@@ -60,7 +60,36 @@ public class TeleopRED extends OpMode {
     private static final int LED_STATUS_AIMING = 1;
     private static final int LED_STATUS_AT_RPM = 2;
 
+    public void autoInit() {
+        // Combine standard telemetry with FTC Dashboard telemetry
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
+        // Get the battery voltage sensor
+        batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
+
+
+        vision = new Vision(telemetry, hardwareMap.get(WebcamName.class, "Arducam"));
+        follower = Constants.createFollower(hardwareMap);
+        follower.update();
+        telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
+        intake = hardwareMap.get( DcMotorSimple.class, "intake");
+        feeder = hardwareMap.get( DcMotorSimple.class, "feeder");
+        //follower.setPose(startingPose == null ? new Pose(88.000, 8.000, Math.toRadians(90)) : startingPose);
+
+
+        shooterL = hardwareMap.get( DcMotorEx.class, "shooterL");
+        shooterR = hardwareMap.get( DcMotorEx.class, "shooterR");
+
+        shooterR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        shooterL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        vision.init();
+
+        led = hardwareMap.get(Servo.class, "led");
+        setLedStatus(LED_STATUS_IDLE); // Set to idle on init
+        alignPID.setTolerance(1.0);
+        alignPID.setSetPoint(DEFAULT_ALIGN_SETPOINT); // Set default align
+    }
     @Override
     public void init() {
         // Combine standard telemetry with FTC Dashboard telemetry
@@ -115,6 +144,10 @@ public class TeleopRED extends OpMode {
         double targetRPM = 0.0;
 
         boolean isShooting = gamepad1.b;
+
+        if(gamepad1.start) {
+            follower.setPose( new Pose(88.000, 8.000, Math.toRadians(0)));
+        }
 
         if (isShooting) {
             if (currentDistance > 3.25) {
@@ -171,13 +204,16 @@ public class TeleopRED extends OpMode {
             setLedStatus(LED_STATUS_IDLE);
 
             // Handle Intake/Feeder
-            runFeeder(0.0);
             if (gamepad1.right_bumper) {
                 runIntake(1.0);
+                runFeeder(0.0);
+            } else if (gamepad1.dpad_down) {
+                runIntake(-1.0);
+                runFeeder(1.0);
             } else {
+                runFeeder(0.0);
                 runIntake(0.0);
             }
-
             // --- Handle Driving ---
             handleManualDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x / 1.5);
         }
@@ -327,8 +363,8 @@ public class TeleopRED extends OpMode {
      */
     private void handleManualDrive(double ySpeed, double xSpeed, double rotation) {
         follower.setTeleOpDrive(
-                xSpeed,
-                -ySpeed,
+                -xSpeed,
+                ySpeed,
                 rotation,
                 false // Field Centric
         );
@@ -366,8 +402,8 @@ public class TeleopRED extends OpMode {
         }
 
         follower.setTeleOpDrive(
-                xSpeed,
-                -ySpeed,
+                -xSpeed,
+                ySpeed,
                 rotation,
                 false // Field Centric
         );

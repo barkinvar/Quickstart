@@ -30,14 +30,14 @@ public class AutoRED extends TeleopRED {
     @Override
     public void init() {
         // 2. Call super.init() to initialize the follower, motors, vision, etc.
-        super.init();
+        super.autoInit();
 
 
         panelsTelemetry = PanelsTelemetry.INSTANCE.getTelemetry();
 
         // 3. Set the starting pose. This MUST match the start of your first path.
         // Your Path1 starts at (56, 8) with a heading of 90 deg.
-        //follower.setPose(new Pose(56.000, 8.000, Math.toRadians(90)));
+        follower.setPose(new Pose(88.000, 8.000, Math.toRadians(90)));
 
         // 4. Build paths using the *follower* variable from ExampleTeleOp2
         paths = new Paths(follower);
