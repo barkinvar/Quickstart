@@ -76,7 +76,7 @@ public class TeleopBLUE extends OpMode {
         telemetryM = PanelsTelemetry.INSTANCE.getTelemetry();
         intake = hardwareMap.get( DcMotorSimple.class, "intake");
         feeder = hardwareMap.get( DcMotorSimple.class, "feeder");
-        follower.setStartingPose(startingPose == null ? new Pose() : startingPose.plus(new Pose(0.000, 0.000, Math.toRadians(-90))));
+        follower.setStartingPose(startingPose == null ? new Pose(56.000, 8.000, Math.toRadians(90)) : startingPose);
 
         shooterL = hardwareMap.get( DcMotorEx.class, "shooterL");
         shooterR = hardwareMap.get( DcMotorEx.class, "shooterR");
@@ -94,7 +94,7 @@ public class TeleopBLUE extends OpMode {
 
     @Override
     public void start() {
-        follower.startTeleopDrive();
+        follower.startTeleopDrive(true);
         vision.updateCameraSettings();
     }
 
@@ -326,8 +326,8 @@ public class TeleopBLUE extends OpMode {
      */
     private void handleManualDrive(double ySpeed, double xSpeed, double rotation) {
         follower.setTeleOpDrive(
-                ySpeed,
                 xSpeed,
+                -ySpeed,
                 rotation,
                 false // Field Centric
         );
@@ -356,7 +356,7 @@ public class TeleopBLUE extends OpMode {
         }
         else if(scanning == 0){
             // Start scanning if we lose the tag
-            scanning = (follower.getHeading() > Math.toRadians(-35.0)) ? 1 : -1;
+            scanning = (follower.getHeading() > Math.toRadians(145.0)) ? 1 : -1;
             rotation = (scanning == 1) ? -0.35 : 0.35;
         }
         else {
@@ -365,8 +365,8 @@ public class TeleopBLUE extends OpMode {
         }
 
         follower.setTeleOpDrive(
-                ySpeed,
                 xSpeed,
+                -ySpeed,
                 rotation,
                 false // Field Centric
         );
