@@ -67,6 +67,7 @@ public class AutoBLUE extends TeleopBLUE {
         panelsTelemetry.debug("Y", follower.getPose().getY());
         panelsTelemetry.debug("Heading", follower.getPose().getHeading());
         telemetry.update();
+        TeleopBLUE.startingPose = follower.getPose();
     }
     public static class Paths {
 

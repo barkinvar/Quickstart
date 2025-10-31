@@ -68,6 +68,7 @@ public class AutoRED extends TeleopRED {
         panelsTelemetry.debug("Y", follower.getPose().getY());
         panelsTelemetry.debug("Heading", follower.getPose().getHeading());
         telemetry.update();
+        TeleopRED.startingPose = follower.getPose();
     }
     public static class Paths {
 

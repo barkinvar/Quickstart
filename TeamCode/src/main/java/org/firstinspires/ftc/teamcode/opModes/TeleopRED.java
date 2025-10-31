@@ -363,8 +363,8 @@ public class TeleopRED extends OpMode {
      */
     private void handleManualDrive(double ySpeed, double xSpeed, double rotation) {
         follower.setTeleOpDrive(
-                -xSpeed,
                 ySpeed,
+                xSpeed,
                 rotation,
                 false // Field Centric
         );
@@ -402,8 +402,8 @@ public class TeleopRED extends OpMode {
         }
 
         follower.setTeleOpDrive(
-                -xSpeed,
                 ySpeed,
+                xSpeed,
                 rotation,
                 false // Field Centric
         );
