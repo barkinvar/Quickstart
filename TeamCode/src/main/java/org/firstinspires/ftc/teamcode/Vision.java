@@ -125,8 +125,8 @@ public class Vision {
 @Config
 class VisionConstants {
     // Default values (will appear live on FTC Dashboard)
-    public static long EXPOSURE_MS = 1000;
-    public static int GAIN = 1;
+    public static long EXPOSURE_MS = 1750;
+    public static int GAIN = 2;
     public static int WB = 1;
 
 }

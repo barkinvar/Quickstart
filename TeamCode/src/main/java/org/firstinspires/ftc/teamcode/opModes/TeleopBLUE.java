@@ -150,7 +150,7 @@ public class TeleopBLUE extends OpMode {
         if (isShooting) {
             if (currentDistance > 3.25) {
                 // This is the "Long Shot"
-                targetRPM = 3400.0;
+                targetRPM = 3500.0;
                 useLongShotPID = true; // Use the long shot PID values
                 alignSetpoint = LONG_ALIGN_SETPOINT; // Use the long shot alignment
             } else {
@@ -178,7 +178,7 @@ public class TeleopBLUE extends OpMode {
             setShooterRPM(targetRPM, useLongShotPID);
             boolean atRPM = isShooterAtRPM(targetRPM);
 
-            if (atRPM) {
+            if (atRPM || gamepad1.left_bumper) {
                 setLedStatus(LED_STATUS_AT_RPM);
                 runIntake(1.0);
                 runFeeder(-1.0);
@@ -198,19 +198,21 @@ public class TeleopBLUE extends OpMode {
         } else {
             // --- Not in Shooting Mode ---
             scanning = 0;
-            stopShooter();
             setLedStatus(LED_STATUS_IDLE);
 
             // Handle Intake/Feeder
             if (gamepad1.right_bumper) {
                 runIntake(1.0);
                 runFeeder(0.0);
+                stopShooter();
             } else if (gamepad1.dpad_down) {
                 runIntake(-1.0);
                 runFeeder(1.0);
+                runShooterPercentage(-1.0);
             } else {
                 runFeeder(0.0);
                 runIntake(0.0);
+                stopShooter();
             }
 
             // --- Handle Driving ---
